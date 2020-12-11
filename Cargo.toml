@@ -1,0 +1,21 @@
+[package]
+name = "notify-call"
+version = "0.1.0"
+authors = ["Vyacheslav Konovalov <crabvk@protonmail.com>"]
+description = "A tool to send desktop notifications and handle actions via D-Bus on Linux."
+homepage = "https://github.com/crabvk/notify-call"
+repository = "https://github.com/crabvk/notify-call"
+readme = "README.md"
+keywords = ["notify-send", "desktop-notifications"]
+license = "MIT"
+categories = ["command-line-utilities"]
+edition = "2018"
+
+[dependencies]
+clap = "2.33.3"
+dbus = "0.9.0"
+dirs = "3.0.1"
+
+[dev-dependencies]
+assert_cmd = "1.0.2"
+predicates = "1.0.5"
