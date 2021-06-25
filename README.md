@@ -1,7 +1,12 @@
+# TODO
+
+- random IDs => fixes bug
+- optionally close notification after successful action command execution
+
 # notify-call
 
 A command-line tool to send desktop notifications and handle actions via D-Bus on Linux.  
-It is [notify-send](https://www.mankier.com/1/notify-send) compatible with additional features.
+It's similar to [notify-send](https://www.mankier.com/1/notify-send) with additional features.
 
 ## Install
 
@@ -15,7 +20,7 @@ On ArchLinux https://aur.archlinux.org/packages/notify-call/
 `-R, --replace-file <FILE>` saves notification ID and replaces notification on next run.  
 It stores files in `XDG_RUNTIME_DIR` (usually /run/user/1000) or /tmp if `XDG_RUNTIME_DIR` is not set. You can also specify an absolute path.
 
-- Set notification actions and the default action
+- Set default and custom notification actions
 
 ```shell
 notify-call -d 'echo example' -o 'echo action1:one' -o 'echo action2:two' hello actions

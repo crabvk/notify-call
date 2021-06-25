@@ -41,7 +41,7 @@ impl<'a> Action {
     pub fn default_from_str(cmd: &'a str) -> Self {
         Self {
             command: cmd.to_string(),
-            label: String::from("default"),
+            label: String::new(),
         }
     }
 

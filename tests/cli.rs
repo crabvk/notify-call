@@ -24,9 +24,16 @@ fn show_and_print_id() {
 
 #[test]
 fn show_with_urgency_and_expire() {
-    call(vec!["-u", "critical", "-t", "2000", "hello", "critical"])
-        .assert()
-        .success();
+    call(vec![
+        "-u",
+        "critical",
+        "-t",
+        "2000",
+        "hello",
+        "disappearing in 2 seconds...",
+    ])
+    .assert()
+    .success();
 }
 
 #[test]
@@ -68,9 +75,15 @@ fn show_with_actions() {
 
 #[test]
 fn show_and_replace() -> Result<(), Box<dyn error::Error>> {
-    let output = call(vec!["-p", "hello", "to be replaced by id"])
-        .output()?
-        .stdout;
+    let output = call(vec![
+        "-p",
+        "-u",
+        "critical",
+        "hello",
+        "!MUST BE REPLACED BY ID!",
+    ])
+    .output()?
+    .stdout;
     let nid: u32 = str::from_utf8(&output)?.trim().parse()?;
     call(vec![
         "-r",
@@ -85,9 +98,16 @@ fn show_and_replace() -> Result<(), Box<dyn error::Error>> {
 
 #[test]
 fn show_and_replace_with_file() {
-    call(vec!["-R", "file1", "hello", "to be replaced with file"])
-        .assert()
-        .success();
+    call(vec![
+        "-u",
+        "critical",
+        "-R",
+        "file1",
+        "hello",
+        "!MUST BE REPLACED BY FILE!",
+    ])
+    .assert()
+    .success();
 
     let path = dirs::runtime_dir().unwrap().join(path::Path::new("file1"));
     assert!(path.exists());

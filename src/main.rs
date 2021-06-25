@@ -64,7 +64,7 @@ fn try_main() -> Result<(), Box<dyn std::error::Error>> {
     let mut hints: HashMap<&str, Variant<Box<dyn RefArg>>> = HashMap::new();
 
     if let Some(level) = matches.value_of("urgency") {
-        let index = Urgency::from_str(level).unwrap() as i32;
+        let index = Urgency::from_str(level).unwrap() as u8;
         hints.insert("urgency", Variant(Box::new(index)));
     }
 
