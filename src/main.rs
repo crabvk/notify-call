@@ -53,6 +53,7 @@ fn try_main() -> Result<(), Box<dyn std::error::Error>> {
         .arg(Arg::from_usage("-r, --replace=[ID]        'Replace existing notification.'"))
         .arg(Arg::from_usage("-R, --replace-file=[FILE] 'Use file to store and replace notification ID.'"))
         .arg(Arg::from_usage("-p, --print-id            'Print notification ID.'"))
+        .arg(Arg::from_usage("-w, --no-wait             'Wait for the notification exit. Useful to ignore waiting for action return.'"))
         .arg(Arg::from_usage("<SUMMARY>                 'Summary text (notification header).'"))
         .arg(Arg::from_usage("[BODY]                    'Detailed body text.'"))
         .get_matches();
@@ -113,6 +114,8 @@ fn try_main() -> Result<(), Box<dyn std::error::Error>> {
         None
     };
 
+    let no_wait = matches.is_present("no-wait");
+
     let conn = Connection::new_session()?;
     let proxy = conn.with_proxy(
         "org.freedesktop.Notifications",
@@ -160,8 +163,10 @@ fn try_main() -> Result<(), Box<dyn std::error::Error>> {
             },
         )?;
 
-        loop {
-            conn.process(Duration::from_millis(1000))?;
+        if !no_wait {
+            loop {
+                conn.process(Duration::from_millis(1000))?;
+            }
         }
     }
 
